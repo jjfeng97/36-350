@@ -20,3 +20,19 @@ model_select = function(covariates, responses, cutoff) {
   
   return(final.pvals)
 }
+
+run_simulation = function(n_trials, n, p, cutoff) {
+  all.pvals = vector()
+  
+  for(i in 1:n_trials) {
+    for(j in 1:length(n)) {
+      for(k in 1:length(p)) {
+        data = generate_data(n[j], p[k])
+        pvals = model_select(data$covariates, data$responses, cutoff)
+        all.pvals = c(all.pvals, pvals)
+      }
+    }
+  }
+  
+  hist(all.pvals, main = "P-values", ylab = "Frequency", xlab = "P-value")
+}
