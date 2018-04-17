@@ -21,7 +21,7 @@ model_select = function(covariates, responses, cutoff) {
   return(final.pvals)
 }
 
-run_simulation = function(n_trials, n, p, cutoff) {
+run_simulation = function(n_trials, n, p, cutoff, path) {
   all.pvals = vector()
   
   for(i in 1:n_trials) {
@@ -34,5 +34,10 @@ run_simulation = function(n_trials, n, p, cutoff) {
     }
   }
   
-  hist(all.pvals, main = "P-values", ylab = "Frequency", xlab = "P-value")
+  write(all.pvals, file = path, sep = "\n")
+}
+
+make_plot = function(datapath) {
+  data = as.numeric(readLines(datapath))
+  hist(data)
 }
